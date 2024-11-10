@@ -2,3 +2,7 @@
 .env
 
 /venv
+
+/tests
+
+inference_api.txt
