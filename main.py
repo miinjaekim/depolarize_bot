@@ -34,7 +34,7 @@ def generate_response(instruction, knowledge, dialog):
 def send_welcome(message):
     bot.reply_to(
         message,
-        "Hello! I'm a bot that will practice having a polarizing conversation with you. Please provide a topic and your stance.",
+        "Hello! I'm a bot that will practice having a polarizing conversation with you. Please provide a topic and the stance I should take.",
     )
     # Register the next step to capture the user's response
     bot.register_next_step_handler(message, capture_topic_and_stance)
@@ -48,7 +48,7 @@ def capture_topic_and_stance(message):
 
     # Store user's topic and stance in user_data dictionary
     user_data[user_id] = {
-        "instruction": f"Instruction: Have a polarizing conversation with the user. The user chose this topic and stance: '{user_input}'. Take an opposing stance.",
+        "instruction": f"Instruction: Have a polarizing conversation. This is the topic and stance that you should take: '{user_input}'. Whatever the most recent message is, you should take the opposing stance.",
         "dialog": [],
     }
 
@@ -75,7 +75,11 @@ def handle_conversation(message):
     dialog.append(user_input)
 
     # Generate response with GODEL
-    response = generate_response(instruction, "", dialog)
+    response = generate_response(
+        instruction,
+        "Abortion should be illegal.",
+        dialog,
+    )
 
     # Send GODEL's response back to the user
     bot.reply_to(message, response)
